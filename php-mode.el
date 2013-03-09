@@ -837,13 +837,25 @@ searching the PHP website."
   (browse-url php-manual-url))
 
 
+(defconst php-magic-constants
+  (eval-when-compile
+    (regexp-opt
+     '("__LINE__"
+       "__FILE__"
+       "__DIR__"
+       "__FUNCTION__"
+       "__CLASS__"
+       "__TRAIT__"
+       "__METHOD__"
+       "__NAMESPACE__")))
+    "A list of regular expressions to match the magic constants.
+See <http://php.net/manual/en/language.constants.predefined.php>
+for a list of all magic constants in PHP.")
+
 (defconst php-constants
   (eval-when-compile
     (regexp-opt
      '(;; core constants
-       "__LINE__" "__FILE__" "__DIR__"
-       "__FUNCTION__" "__CLASS__" "__TRAIT__" "__METHOD__"
-       "__NAMESPACE__"
        "__COMPILER_HALT_OFFSET__"
        "PHP_OS" "PHP_VERSION"
        "PHP_MINOR_VERSION" "PHP_MAJOR_VERSION" "PHP_RELEASE_VERSION"
@@ -1453,7 +1465,12 @@ searching the PHP website."
 (defconst php-font-lock-keywords-1
   (list
 
-   ;; Fontify constants
+   ;; Fontify magic constants
+   (cons
+    (concat "[^_$]?\\<\\(" php-magic-constants "\\)\\>[^_]?")
+    '(1 font-lock-constant-face))
+
+   ;; Fontify other constants
    (cons
     (concat "[^_$]?\\<\\(" php-constants "\\)\\>[^_]?")
     '(1 font-lock-constant-face))
