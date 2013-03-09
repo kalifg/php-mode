@@ -598,7 +598,7 @@ This is was done due to the problem reported here:
            ;; extreme/ugly for you.
            php-font-lock-keywords-3)
           nil                ; KEYWORDS-ONLY
-          t                  ; CASE-FOLD
+          nil                ; CASE-FOLD
           (("_" . "w"))      ; SYNTAX-ALIST
           nil))              ; SYNTAX-BEGIN
 
